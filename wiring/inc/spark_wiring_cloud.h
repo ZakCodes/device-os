@@ -174,7 +174,7 @@ public:
     template<typename T>
     static inline bool _variable(const T *varKey, const String *userVar, const CloudVariableTypeString& userVarType)
     {
-        spark_variable_t extra;
+        spark_variable_t extra = {};
         extra.size = sizeof(extra);
         extra.update = update_string_variable;
         return CLOUD_FN(spark_variable(varKey, userVar, CloudVariableTypeString::TYPE_ID, &extra), false);
