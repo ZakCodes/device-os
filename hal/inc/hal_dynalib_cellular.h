@@ -84,6 +84,7 @@ DYNALIB_FN(36, hal_cellular, cellular_credentials_clear, int(void*))
 #endif // !HAL_PLATFORM_MESH
 
 DYNALIB_FN(BASE_CELL_IDX + 0, hal_cellular, cellular_global_identity, cellular_result_t(CellularGlobalIdentity*, void*))
+DYNALIB_FN(BASE_CELL_IDX + 1, hal_cellular, cellular_send_sms, int(const char*, const char*, system_tick_t))
 
 DYNALIB_END(hal_cellular)
 

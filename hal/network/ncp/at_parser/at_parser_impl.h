@@ -65,6 +65,9 @@ public:
     int hasNextLine(bool* hasLine);
     bool atLineEnd() const;
 
+    int readChar(unsigned* timeout);
+    int readAll(char *s, size_t maxSize);
+
     int addUrcHandler(const char* prefix, AtParser::UrcHandler handler, void* data);
     void removeUrcHandler(const char* prefix);
     int processUrc(unsigned timeout);

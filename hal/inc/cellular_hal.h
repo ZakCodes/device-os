@@ -160,6 +160,11 @@ cellular_result_t cellular_command(_CALLBACKPTR_MDM cb, void* param,
                          system_tick_t timeout_ms, const char* format, ...);
 
 /**
+ * Get the AT command parser
+ */
+cellular_result_t cellular_send_sms(const char* number, const char *message, system_tick_t timeout);
+
+/**
  * Set cellular data usage info
  */
 cellular_result_t cellular_data_usage_set(CellularDataHal* data, void* reserved);

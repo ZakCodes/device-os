@@ -39,6 +39,10 @@ public:
             NetworkClass(NETWORK_INTERFACE_CELLULAR) {
     }
 
+    int sendSms(const char* number, const char* type) {
+        return cellular_send_sms(number, type, 10000);
+    }
+
     IPAddress localIP() {
         return IPAddress(((CellularConfig*)network_config(*this, 0, NULL))->nw.aucIP);
     }

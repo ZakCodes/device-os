@@ -36,6 +36,8 @@
 
 #include <limits>
 
+#include <stream.h>
+
 namespace {
 
 using namespace particle;
@@ -542,6 +544,36 @@ int cellular_command(_CALLBACKPTR_MDM cb, void* param, system_tick_t timeout_ms,
     }
 
     return mdmTypeToResult(mdmType);
+}
+
+int cellular_send_sms(const char *number, const char *message, system_tick_t timeout_ms) {
+    auto mgr = cellularNetworkManager();
+    CHECK_TRUE(mgr, SYSTEM_ERROR_UNKNOWN);
+    auto client = mgr->ncpClient();
+    CHECK_TRUE(client, SYSTEM_ERROR_UNKNOWN);
+    auto parser = client->atParser();
+    CHECK_TRUE(parser, SYSTEM_ERROR_UNKNOWN);
+
+    NcpClientLock lock(client);
+
+    /*parser->logEnabled(false);
+    auto result = parser->command().printf("AT+CMGW=\"%s\"", number).timeout(timeout_ms).send();
+
+    //char buf[1024];
+    //return result.readAll((char*)number, 1000);
+    int i = result.readAll((char*)number, 1000);
+    ((char*)number)[0] = 0;
+
+    return i;
+    */
+
+    Stream *stream = parser->config().stream();
+    char msg[] = "AT+CMGS=\"18199685918\"\r";
+    stream->writeAll(msg, sizeof(msg) - 1, 10000);
+    stream->readAll((char*)number, 100, 10000);
+    char msg2[] = "Allo Inès\x1a";
+    stream->writeAll(msg2, sizeof(msg2) - 1);
+    return stream->readAll(((char*)number) + 30, 100, 10000);
 }
 
 int cellular_data_usage_set(CellularDataHal* data, void* reserved) {

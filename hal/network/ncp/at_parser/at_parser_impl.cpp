@@ -561,6 +561,32 @@ int AtParserImpl::readLine(char* data, size_t size, unsigned* timeout) {
     return bytesRead;
 }
 
+int AtParserImpl::readChar(unsigned* timeout) {
+    int result = -1;
+
+    /*if (bufPos_ == 0) {
+        CHECK(readMore(timeout));
+        if (bufPos_ > 0)
+            result = buf_[0];
+    }*/
+
+    if (bufPos_ > 0)
+        result = buf_[0];
+
+    return result;
+}
+
+int AtParserImpl::readAll(char *s, size_t maxSize) {
+    size_t read = 0;
+    CHECK(readMore(nullptr));
+
+    read = std::min((size_t)bufPos_, maxSize);
+    memcpy(s, buf_, read);
+    bufPos_ -= read;
+
+    return read;
+}
+
 int AtParserImpl::nextLine(unsigned* timeout) {
     size_t bytesRead = 0;
     for (;;) {

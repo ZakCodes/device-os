@@ -125,6 +125,9 @@ public:
      */
     explicit operator bool() const;
 
+    int readChar();
+    int readAll(char *s, size_t maxSize);
+
     // Instances of this class are non-copyable
     AtResponseReader(const AtResponseReader&) = delete;
     AtResponseReader& operator=(const AtResponseReader&) = delete;

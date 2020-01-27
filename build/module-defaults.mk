@@ -48,7 +48,7 @@ endif
 
 WARNINGS_AS_ERRORS ?= y
 ifeq ($(WARNINGS_AS_ERRORS),y)
-CFLAGS += -Werror
+# CFLAGS += -Werror
 endif
 
 # add include directories

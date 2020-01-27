@@ -155,6 +155,14 @@ int AtResponseReader::readLine(char* buf, size_t size, size_t offs) {
     return offs;
 }
 
+int AtResponseReader::readChar() {
+    return parser_->readChar(nullptr);
+}
+
+int AtResponseReader::readAll(char *s, size_t maxSize) {
+    return parser_->readAll(s, maxSize);
+}
+
 int AtResponseReader::error(int ret) {
     if (parser_) {
         parser_ = nullptr;
